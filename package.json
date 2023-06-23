@@ -21,6 +21,8 @@
   "homepage": "https://github.com/eckermania/eckerman-erin-ecc-dssb-IS21-code-challenge-req101408#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "nodemon": "^2.0.22"
+    "fs": "0.0.1-security",
+    "nodemon": "^2.0.22",
+    "unique-names-generator": "^4.7.1"
   }
 }

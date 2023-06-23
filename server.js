@@ -3,7 +3,7 @@
 // dependencies
 import express from 'express';
 
-// import activity from './endpoints/activity.js';
+import index from './api/index.js';
 // import user from './endpoints/user.js';
 
 // setup server
@@ -13,16 +13,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.get("/", (req, res) =>{
-    res.send("Hello, world")
-});
+//API routes
+app.use("/", index)
+// app.use("/product", product);
 
-// API routes
-// app.use("/activity", activity);
-// app.use("/user", user);
-
-
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.listen(port, ()=>{
     console.log(`Listening on port: ${port}`);
 });
