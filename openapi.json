@@ -127,7 +127,7 @@
         },
         "/api/product/{productId}":{
             "get":{
-                "description": "Retrieves single product corresponding to productId provided in route path",
+                "description": "Retrieves single product corresponding to productId provided in path",
                 "tags": ["Product"],
                 "parameters":[{
                     "in": "path",
@@ -153,6 +153,32 @@
                     },
                     "404":{
                         "description": "productId is not found within mock db"
+                    },
+                    "500":{
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete":{
+                "description": "Deletes single product corresponding to productId provided in path",
+                "tags": ["Product"],
+                "parameters":[{
+                    "in": "path",
+                    "name": "productId",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "required": true
+                }],
+                "responses":{
+                    "204":{
+                        "description": "Deletion completed - no content"
+                    },
+                    "404": {
+                        "description": "productId is not found within mock db"
+                    },
+                    "500": {
+                        "description": "Server error"
                     }
                 }
             }

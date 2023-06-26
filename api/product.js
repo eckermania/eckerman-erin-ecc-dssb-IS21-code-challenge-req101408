@@ -71,4 +71,39 @@ router.post("/", (req, res) => {
     }
 })
 
+//DELETE product
+router.delete("/:productId", (req, res) => {
+    try{
+        let targetId = parseInt(req.params.productId);
+        let products = JSON.parse(fs.readFileSync(dbPath));
+
+        //Find location of product to be deleted in in-memory version of mock db
+        let targetIndex = -1
+        for (let i = 0; i < products.length; i++){
+            if (products[i].productId == targetId){
+                targetIndex = i;
+                break;
+            }
+        }
+
+        //given productId does not exist in mock db
+        if (targetIndex == -1){
+            res.status(404).send("productId not present in db");
+        }
+
+        //delete targeted product and overwrite mock db
+        delete products[targetIndex];
+        fs.writeFile(dbPath, JSON.stringify(products), err =>{
+            if (err){
+                console.log("Error writing file:", err);
+            } else {
+                res.send(204)
+            }     
+        })
+
+    } catch(err) {
+        res.status(500).send(err)
+    }
+})
+
 export default router;
