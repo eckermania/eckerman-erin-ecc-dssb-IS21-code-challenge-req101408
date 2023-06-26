@@ -18,7 +18,7 @@ let currentID = 0;
 // Class for a single product
 class Product {
     constructor() {
-        this.productID = this.generateID();
+        this.productId = this.generateID();
         this.productName = uniqueNamesGenerator({dictionaries: [adjectives, colors, animals]});
         this.productOwnerName = owners[Math.floor(Math.random() * owners.length)];
         this.Developers = this.generateDevs();
@@ -78,3 +78,4 @@ function buildMockDB(){
 }
 
 buildMockDB();
+

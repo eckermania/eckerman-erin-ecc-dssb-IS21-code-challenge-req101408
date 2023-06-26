@@ -7,7 +7,18 @@ import * as fs from "fs";
 //filepath to mock db
 const dbPath = './products.json'
 
-// GET one product 
+//helper function to check if productId present in list of products
+function productIdPresent(productList, productId){
+    for(let i = 0; i < productList.length; i++){
+        if (productList[i].productId == productId){
+            return true
+        }
+    }
+    return false
+}
+
+
+//GET one product 
 router.get("/:productId", (req, res) => {
     try{
         let productId = parseInt(req.params.productId);
@@ -20,7 +31,7 @@ router.get("/:productId", (req, res) => {
         let products = JSON.parse(fs.readFileSync(dbPath));
 
         //productId does not exist in db
-        if (productId < 1 || productId > products.length){
+        if (!productIdPresent(products, productId)){
             res.status(404).send("productId not present in database")
         }
 
@@ -31,5 +42,33 @@ router.get("/:productId", (req, res) => {
     }
 
 });
+
+//POST new product
+router.post("/", (req, res) => {
+    try{
+        let newProduct = req.body;
+        let products = JSON.parse(fs.readFileSync(dbPath));
+
+        //identify id for new product
+        // newProduct["productId"] = parseInt(products[products.length-1].productId) ++;
+        let lastProduct = products[products.length-1];
+        let highestID = lastProduct.productId;
+
+        newProduct["productId"] = highestID += 1;
+
+        //add new product to in-memory version of mock db and overwrite mock db file
+        products.push(newProduct);
+        fs.writeFile(dbPath, JSON.stringify(products), err =>{
+            if (err){
+                console.log("Error writing file:", err);
+            } else {
+                res.send(201)
+            }     
+        })
+
+    } catch(err){
+        res.status(500).send(err)
+    }
+})
 
 export default router;
