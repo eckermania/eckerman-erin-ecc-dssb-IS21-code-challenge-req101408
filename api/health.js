@@ -4,6 +4,7 @@ const router = express.Router();
 
 import * as fs from "fs";
 
+//filepath to mock db
 const dbPath = './products.json'
 
 // Check health of API - currently only consists of a check for mock db file
@@ -15,7 +16,7 @@ router.get("/", (req, res) => {
             res.status(500).send("Mock db does not exist. Run generated-db.js script to create mock db json file.")
         }
     } catch(err){
-        console.error(err)
+        res.status(500).send(err)
     }
 });
 

@@ -3,38 +3,100 @@
     "info": {
       "title":"Province of BC Web Applications API",
       "version":"1.0",
-      "author": "Erin Eckerman",
       "description": "This API enables tracking and management of web applications developed by the Province of BC."
     },
     "servers": [
       {"url":"http://localhost:3000"}
     ],
+    "components": {
+        "schemas":{
+            "product":{
+                "type": "object",
+                "properties":{
+                    "productId":{
+                        "type": "integer",
+                        "description": "ID of product"
+                    },
+                    "productName":{
+                        "type": "string",
+                        "description": "Name of product"
+                    },
+                    "productOwnerName":{
+                        "type": "string",
+                        "description": "Name of Product Manager who owns product"
+                    },
+                    "Developers":{
+                        "type": "array",
+                        "description": "List of developers who are working on product"
+                    },
+                    "scrumMasterName":{
+                        "type": "string",
+                        "description": "Name of Program Manager who is overseeing product"
+                    },
+                    "startDate":{
+                        "type": "string",
+                        "description": "Date product was started in 'YYYY/MM/DD' format"
+                    },
+                    "methodology":{
+                        "type": "string",
+                        "description": "Project management methodology being used for project"
+                    },
+                    "location":{
+                        "type":"string",
+                        "description": "URL for GitHub repository of product"
+                    }
+                },
+                "example":{
+                    "productId": 5,
+                    "productName": "obtuse_blue_iguana",
+                    "productOwnerName": "Alex",
+                    "Developers": ["Erin","Lin","Yusuf","Ajay","Charles"],
+                    "scrumMasterName": "Mircea",
+                    "startDate": "2022/10/09",
+                    "methodology": "Agile",
+                    "location": "github.com/bcgov/obtuse_blue_iguana"
+                }
+            },
+            "productArray":{
+                "type": "array",
+                "items":{
+                    "$ref": "#/components/schemas/product"
+                }
+            }
+        }
+    },
     "paths": {
         "/": {
             "get": {
                 "description": "Fetches all products",
-                "parameters": [],
+                "tags": ["Products"],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                        "$ref": "#/components/schemas/productArray"
+                                    }
+                                }
+                            }
+                        }   
                     }
                 }
-            }
-        },
+            },
         "/api/health": {
             "get": {
-                "description": "Checks current health of API",
-                "parameters": [],
+                "description": "Checks current health of API - currently only includes a check for existence of mock DB file",
+                "tags": ["Monitoring"],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "API is up and mock DB file is present."
                     },
                     "500": {
                         "description": "Mock db does not exist. Run generated-db.js script to create mock db json file."
                     }
                 }
             }
-        }
-        
+        }  
     }
-  }
+}

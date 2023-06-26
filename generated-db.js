@@ -21,7 +21,7 @@ class Product {
         this.productID = this.generateID();
         this.productName = uniqueNamesGenerator({dictionaries: [adjectives, colors, animals]});
         this.productOwnerName = owners[Math.floor(Math.random() * owners.length)];
-        this.developers = this.generateDevs();
+        this.Developers = this.generateDevs();
         this.scrumMasterName = scrumMasters[Math.floor(Math.random() * scrumMasters.length)];
         this.startDate = this.generateStartDate();
         this.methodology = methodology[Math.floor(Math.random() * methodology.length)];;
