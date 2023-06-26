@@ -69,7 +69,7 @@
         "/": {
             "get": {
                 "description": "Fetches all products",
-                "tags": ["Products"],
+                "tags": ["Product"],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -94,6 +94,38 @@
                     },
                     "500": {
                         "description": "Mock db does not exist. Run generated-db.js script to create mock db json file."
+                    }
+                }
+            }
+        },
+        "/api/product/{productId}":{
+            "get":{
+                "description": "Retrieves single product corresponding to productId provided in route path",
+                "tags": ["Product"],
+                "parameters":[{
+                    "in": "path",
+                    "name": "productId",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content":{
+                            "application/json":{
+                                "schema": {
+                                    "$ref": "#/components/schemas/product"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "productId is not an integer"
+                    },
+                    "404":{
+                        "description": "productId is not found within mock db"
                     }
                 }
             }

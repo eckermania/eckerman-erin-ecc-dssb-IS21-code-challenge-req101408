@@ -8,6 +8,7 @@ const swaggerJson = JSON.parse(fs.readFileSync('./openapi.json'));
 
 import index from './api/index.js';
 import health from './api/health.js';
+import product from './api/product.js';
 
 // setup server
 const app = express();
@@ -20,7 +21,7 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerJson));
 //API routes
 app.use("/", index);
 app.use("/api/health", health);
-// app.use("/product", product);
+app.use("/api/product", product);
 
 const port = process.env.PORT || 3000;
 app.listen(port, ()=>{
