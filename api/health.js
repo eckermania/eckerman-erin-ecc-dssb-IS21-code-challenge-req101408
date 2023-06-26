@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
         if (fs.existsSync(dbPath)){
         res.send()
         } else {
-            res.status(500).send("Mock db does not exist. Run generated-db.js script to create mock db json file.")
+            res.status(503).send("Mock db does not exist. Run generated-db.js script to create mock db json file.")
         }
     } catch(err){
         res.status(500).send(err)

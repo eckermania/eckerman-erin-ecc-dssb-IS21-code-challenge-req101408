@@ -90,10 +90,37 @@
                 "tags": ["Monitoring"],
                 "responses": {
                     "200": {
-                        "description": "API is up and mock DB file is present."
+                        "description": "API is up and mock DB file is present"
+                    },
+                    "503": {
+                        "description": "Mock db does not exist. Run generated-db.js script to create mock db json file"
                     },
                     "500": {
-                        "description": "Mock db does not exist. Run generated-db.js script to create mock db json file."
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/product": {
+            "post":{
+                "description": "Creates new product record",
+                "tags": ["Product"],
+                "requestBody":{
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schemas/product"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "OK"
+                    },
+                    "500":{
+                        "description": "Server error"
                     }
                 }
             }
