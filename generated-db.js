@@ -70,7 +70,7 @@ function buildMockDB(){
         let newProd = new Product;
         productList.push(newProd)
     }
-    fs.writeFile("./product.json", JSON.stringify(productList), err =>{
+    fs.writeFile("./products.json", JSON.stringify(productList), err =>{
         if (err){
             console.log("Error writing file:", err);
         }     

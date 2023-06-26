@@ -4,7 +4,7 @@
 import express from 'express';
 
 import index from './api/index.js';
-// import user from './endpoints/user.js';
+import health from './api/health.js';
 
 // setup server
 const app = express();
@@ -14,7 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 //API routes
-app.use("/", index)
+app.use("/", index);
+app.use("/api/health", health);
 // app.use("/product", product);
 
 const port = process.env.PORT || 3000;

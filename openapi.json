@@ -1,0 +1,40 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+      "title":"Province of BC Web Applications API",
+      "version":"1.0",
+      "author": "Erin Eckerman",
+      "description": "This API enables tracking and management of web applications developed by the Province of BC."
+    },
+    "servers": [
+      {"url":"http://localhost:3000"}
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "description": "Fetches all products",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/health": {
+            "get": {
+                "description": "Checks current health of API",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Mock db does not exist. Run generated-db.js script to create mock db json file."
+                    }
+                }
+            }
+        }
+        
+    }
+  }
