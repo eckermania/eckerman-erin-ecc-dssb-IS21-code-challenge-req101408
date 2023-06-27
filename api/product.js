@@ -17,6 +17,18 @@ function findProductIdIndex(productList, productId){
     return -1;
 }
 
+// GET all products 
+router.get("/all", (req, res) => {
+    try{
+        let products = fs.readFileSync(dbPath);
+        res.writeHead(200, {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
+        res.end(products)
+    } catch(err){
+        res.status(500).send(err)
+    }
+
+});
+
 //GET one product 
 router.get("/:productId", (req, res) => {
     try{
@@ -36,7 +48,7 @@ router.get("/:productId", (req, res) => {
             return;
         }
 
-        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.writeHead(200, {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
         res.end(JSON.stringify(products[productId - 1]));
 
     } catch(err){
