@@ -26,7 +26,7 @@ const ProductCreateForm = () => {
 
     const handleSubmit = async (event) => {
         const msg = toast.loading("Adding record...");
-      event.preventDefault();
+        event.preventDefault();
 
         // Validate productName
         if(productName === ""){

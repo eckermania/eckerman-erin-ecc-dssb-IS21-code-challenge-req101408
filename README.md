@@ -5,5 +5,14 @@ Run npm i in your terminal to install the app's dependencies. Once that is compl
 
 
 ## Assumptions
-- Data validation will primarily happen on the frontend (or later via a database schema) - e.g. when a new product is created, the frontend form will check for proper formation of inputs and block submission if any values are missing
 - Product ID numbers from previously deleted products can be reused
+- Deletions are an acceptable one-way door since they involve actual removal from the mock db (as opposed to toggling a "deleted" bit)
+
+## Testing
+npm test
+* contains tests that will not pass if records have been added or removed from the mock gb since it's original generation
+
+## Next Steps
+- Create form/page for updating records
+- Add server-side validation check that contents of product create and update are all present and correctly formed within request
+- Expand tests for more robust checks of writing to mock db

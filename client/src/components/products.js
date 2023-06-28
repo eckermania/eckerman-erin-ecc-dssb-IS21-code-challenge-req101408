@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Button, Modal , Container, Row, Col} from 'react-bootstrap';
 
 // Products table page / landing page
 export default class Products extends React.Component {
@@ -8,7 +11,10 @@ export default class Products extends React.Component {
     super(props);
 
     this.state = {
-      data: []
+      data: [],
+      selectedId: null,
+      selectedName: "",
+      modalShow: false
     };
   }
 
@@ -17,23 +23,79 @@ export default class Products extends React.Component {
   }
 
   async updateData() {
-    axios
-        .get("/api/product/all")
+    const msg = toast.loading("Retrieving records...");
+    axios({
+        method: "get",
+        url: "/api/product/all",
+    })
         .then(res => {
-            console.log("RESPONSE:", res);
             this.setState({data:res.data});
+            toast.dismiss(msg);
         })
+        .catch((err) => {
+            toast.update(msg, { render: "Something went wrong!", type: "error", isLoading: false, autoClose: 3000 });
+        })
+  };
+
+  handleShow = (productId, productName) => {
+    this.setState({ modalShow: true, selectedId: productId, selectedName: productName});
+  }
+
+  handleClose = () => {
+    this.setState({modalShow: false, selectedId: null, selectedName: ""})
+  }
+
+  handleDelete(productId){
+    const msg = toast.loading("Deleting record...");
+    const deleteURL = `/api/product/` + String(productId)
+    axios({
+        method: "delete",
+        url: deleteURL
+    }).then((res) => {
+        if(res.status !== 204){
+            toast.update(msg, { render: "Something went wrong!", type: "error", isLoading: false, autoClose: 3000 });
+        } else {
+            this.handleClose();
+            window.location.reload(false);
+        }
+    })
   };
   
   render() {
     return (
       <div className="container">
+        <ToastContainer />
+   
+        <Modal size="lg" show={this.state.modalShow} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Confirmation</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete {this.state.selectedName}?
+          </Modal.Body>
+          <Modal.Footer>         
+            <Button variant="secondary" onClick={this.handleClose}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={() => this.handleDelete(this.state.selectedId)}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
         <h1 className="text-center">Province of BC Web Applications</h1>
+        <br></br>
         <h2 className="text-center">Total # of Active Products: {this.state.data.length}</h2>
-        <form action="/product/new" method="GET">
-            <input type="submit" value="Create New Product"/>
+        <br></br>
+        <form action="/product/new" method="GET" className="d-flex justify-content-center">
+            <input className="btn btn-primary" type="submit" value="Create New Product"/>
         </form>
-        <table className="table">
+        <br></br>
+        <Container fluid>
+          <Row>
+            <Col>
+            <div className="table-responsive">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th scope="col">Product ID</th>
@@ -58,21 +120,16 @@ export default class Products extends React.Component {
                   <td>{row.startDate}</td>
                   <td>{row.methodology}</td>
                   <td>{row.location}</td>
-                  <td>
-                    <a 
-                      href={"/product/" + row.productId + "/edit"} 
-                      className="btn btn-light btn-md"
-                    >Edit</a>
-                  </td>
-                  <td>
-                    <a 
-                      href={"/product/"+ row.productId + "/delete"}
-                      className="btn btn-danger btn-md">Delete</a></td>
+                  <td><Button variant="danger" onClick={() => this.handleShow(row.productId, row.productName)}>Delete</Button></td>
                 </tr>
               )
             }
           </tbody>
         </table>
+        </div>
+        </Col>
+        </Row>
+        </Container>
 
         {this.state.data[0] ? "" : 
           <div className="spinner-border" role="status">
