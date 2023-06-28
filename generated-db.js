@@ -51,13 +51,12 @@ class Product {
         let minDate = new Date(minStartDateYear, 1, 1);
         let maxDate = new Date();
         
-        let randDate = new Date(minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime()));
+        let randDate = new Date(minDate.getTime() + (Math.random() * (maxDate.getTime() - minDate.getTime())));
         let randMonth = randDate.getMonth().toString();
         randMonth = randMonth.length == 1 ? `0` + randMonth : randMonth;
         let randDay = randDate.getDate().toString();
         randDay = randDay.length == 1 ? `0` + randDay : randDay;
         let strDate = randDate.getFullYear().toString() + `/` + randMonth + `/` + randDay;
-        // let strDate = randDate.getFullYear().toString() + `/` + ('0' + randDate.getMonth()).slice(-2)+`/` + ('0' + randDate.getDate()).slice(-2)
         
         return strDate;
     }

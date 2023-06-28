@@ -17,11 +17,8 @@ export default class Products extends React.Component {
   }
 
   async updateData() {
-    // const res = await axios.get('/api/product');
-    // console.log("RESPONSE:", res);
-    // this.setState({data: res.data});
     axios
-        .get("http://localhost:3000/api/product/all")
+        .get("/api/product/all")
         .then(res => {
             console.log("RESPONSE:", res);
             this.setState({data:res.data});
@@ -32,6 +29,10 @@ export default class Products extends React.Component {
     return (
       <div className="container">
         <h1 className="text-center">Province of BC Web Applications</h1>
+        <h2 className="text-center">Total # of Active Products: {this.state.data.length}</h2>
+        <form action="/product/new" method="GET">
+            <input type="submit" value="Create New Product"/>
+        </form>
         <table className="table">
           <thead>
             <tr>
@@ -52,7 +53,7 @@ export default class Products extends React.Component {
                   <th scope="row">{row.productId}</th>
                   <td>{row.productName}</td>
                   <td>{row.productOwnerName}</td>
-                  <td>{row.Developers}</td>
+                  <td>{row.Developers.join(', ')}</td>
                   <td>{row.scrumMasterName}</td>
                   <td>{row.startDate}</td>
                   <td>{row.methodology}</td>
