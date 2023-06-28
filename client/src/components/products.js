@@ -46,17 +46,17 @@ export default class Products extends React.Component {
   }
 
   handleDelete(productId){
-    const msg = toast.loading("Deleting record...");
     const deleteURL = `/api/product/` + String(productId)
     axios({
         method: "delete",
         url: deleteURL
     }).then((res) => {
         if(res.status !== 204){
-            toast.update(msg, { render: "Something went wrong!", type: "error", isLoading: false, autoClose: 3000 });
+            toast.loading({ render: "Something went wrong!", type: "error", isLoading: false, autoClose: 3000 });
         } else {
-            this.handleClose();
-            window.location.reload(false);
+          const updatedData = this.state.data.filter((item) => item.productId !== productId);
+          this.setState({ data: updatedData });
+          this.handleClose();
         }
     })
   };

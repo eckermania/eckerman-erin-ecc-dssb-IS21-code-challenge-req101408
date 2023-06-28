@@ -8,7 +8,7 @@ This app was built as a take-home assignment from the Province of BC as part of 
 To run this application locally, follow these steps from within your terminal, in the root of this repository/directory:
 1. run `npm i`
 2. after packages are done installing, run `nodemon` - your server should now be up and running on (http://localhost:3000)
-3. open a new tab in your terminal and run `cd client && npm build`
+3. open a new tab in your terminal and run `cd client && npm i`
 4. after packages are done installing, run `npm start` - the application should automatically open in your browswer at (http://localhost:3001)
 
 ## API Documentation
@@ -23,5 +23,6 @@ A suite of unit tests for the product-related endpoints are contained within the
 
 ## Next Steps
 - Create form/page for updating records
+- Add more graceful error handling on the frontend
 - Add server-side validation check that contents of product create and update are all present and correctly formed within request
-- Expand tests for more robust checks of writing to mock db
+- Expand unit tests for more robust checks of writing to mock db
