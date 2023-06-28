@@ -69,6 +69,9 @@ router.post("/", (req, res) => {
 
         newProduct["productId"] = highestID += 1;
 
+        //change startDate to desired format
+        newProduct["startDate"] = newProduct["startDate"].replace(/-/g, "/")
+
         //add new product to in-memory version of mock db and overwrite mock db file
         products.push(newProduct);
         fs.writeFile(dbPath, JSON.stringify(products), err =>{
