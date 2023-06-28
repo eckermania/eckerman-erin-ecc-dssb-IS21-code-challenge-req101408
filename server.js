@@ -15,7 +15,7 @@ const app = express();
 // add req.body to all requests
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerJson));
+app.use('/api/swagger', swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
 //API routes
 app.use("/api/health", health);

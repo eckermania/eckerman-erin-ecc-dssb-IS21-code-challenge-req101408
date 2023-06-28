@@ -79,7 +79,7 @@ router.post("/", (req, res) => {
                 res.status(500).send(err);
                 return;
             } else {
-                res.send(201);
+                res.sendStatus(201);
             }     
         })
 
@@ -108,7 +108,7 @@ router.delete("/:productId", (req, res) => {
             if (err){
                 res.status(500).send(err);
             } else {
-                res.send(204);
+                res.sendStatus(204);
             }     
         })
 
@@ -146,7 +146,7 @@ router.put("/:productId", (req, res) => {
             if (err){
                 res.status(500).send(err);
             } else {
-                res.send(200);
+                res.sendStatus(200);
             }     
         })
 
