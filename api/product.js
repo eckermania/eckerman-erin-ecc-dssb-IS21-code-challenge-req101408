@@ -108,6 +108,7 @@ router.delete("/:productId", (req, res) => {
             if (err){
                 res.status(500).send(err);
             } else {
+                res.writeHead(200, {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
                 res.send(204);
             }     
         })

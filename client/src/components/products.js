@@ -26,7 +26,7 @@ export default class Products extends React.Component {
     const msg = toast.loading("Retrieving records...");
     axios({
         method: "get",
-        url: "/api/product/all",
+        url: "http://localhost:3000/api/product/all",
     })
         .then(res => {
             this.setState({data:res.data});
@@ -46,7 +46,7 @@ export default class Products extends React.Component {
   }
 
   handleDelete(productId){
-    const deleteURL = `/api/product/` + String(productId)
+    const deleteURL = `http://localhost:3000/api/product/` + String(productId)
     axios({
         method: "delete",
         url: deleteURL

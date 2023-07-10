@@ -13,10 +13,15 @@ To run this application locally, follow these steps from within your terminal, i
 
 ## Docker
 Build image:
-docker build -t "bc-web-apps" .
+docker build -t "bc-web-apps-server" .
+
+cd client
+docker build -t "bc-web-apps-ui" .
 
 Start container:
-docker run -dp 127.0.0.1:3000:3000 bc-web-apps
+
+docker run -dp 3000:3000 bc-web-apps-server
+docker run -dp 3001:80 bc-web-apps-ui .
 
 ## API Documentation
 To view documentation of the endpoints contained in the API and to manually test, you can find a Swagger page at (http://localhost:3000/api/swagger)
