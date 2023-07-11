@@ -7,6 +7,8 @@ This app was built as a take-home assignment from the Province of BC as part of 
 ## Running with Docker
 To run this application locally, you must have Docker Desktop installed. To build and run the containers contained in this repo, run `docker compose up --build` from the root of the repository.
 
+The application can then be found at (http://localhost:3001).
+
 ## API Documentation
 To view documentation of the endpoints contained in the API and to manually test, you can find a Swagger page at (http://localhost:3000/api/swagger)
 
