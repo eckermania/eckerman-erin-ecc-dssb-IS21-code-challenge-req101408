@@ -60,6 +60,7 @@ router.get("/:productId", (req, res) => {
 //POST new product
 router.post("/", (req, res) => {
     try{
+        console.log("POST requested")
         let newProduct = req.body;
         let products = JSON.parse(fs.readFileSync(dbPath));
 
@@ -71,6 +72,8 @@ router.post("/", (req, res) => {
 
         //change startDate to desired format
         newProduct["startDate"] = newProduct["startDate"].replace(/-/g, "/")
+
+        console.log("New product created: ", newProduct);
 
         //add new product to in-memory version of mock db and overwrite mock db file
         products.push(newProduct);
@@ -108,7 +111,9 @@ router.delete("/:productId", (req, res) => {
             if (err){
                 res.status(500).send(err);
             } else {
-                res.send(204);
+                res.writeHead(204, {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
+                res.end();
+                // res.send(204);
             }     
         })
 

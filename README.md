@@ -11,6 +11,18 @@ To run this application locally, follow these steps from within your terminal, i
 3. open a new tab in your terminal and run `cd client && npm i`
 4. after packages are done installing, run `npm start` - the application should automatically open in your browswer at (http://localhost:3001)
 
+## Docker
+Build image:
+docker build -t "bc-web-apps-server" .
+
+cd client
+docker build -t "bc-web-apps-ui" .
+
+Start container:
+
+docker run -dp 3000:3000 bc-web-apps-server
+docker run -dp 3001:80 bc-web-apps-ui .
+
 ## API Documentation
 To view documentation of the endpoints contained in the API and to manually test, you can find a Swagger page at (http://localhost:3000/api/swagger)
 
